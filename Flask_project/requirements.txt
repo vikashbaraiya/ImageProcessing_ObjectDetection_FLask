@@ -1,0 +1,9 @@
+Flask
+Flask-Cors
+Flask-SQLAlchemy
+Flask-MySQLdb
+mysql-connector-python
+Pillow
+matplotlib
+opencv-python
+python-dotenv

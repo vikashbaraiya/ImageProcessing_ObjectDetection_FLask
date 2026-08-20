@@ -12,7 +12,9 @@ import matplotlib.pyplot as plt
 import cv2
 import datetime
 from flask_cors import CORS
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -20,14 +22,18 @@ CORS(app)
 
 #connect flask to mysql using mysql.connector
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password='root',
-    database="flask",
-    port=3306,
+    host=os.environ.get('DB_HOST', 'localhost'),
+    user=os.environ.get('DB_USER', 'root'),
+    password=os.environ.get('DB_PASSWORD', ''),
+    database=os.environ.get('DB_NAME', 'flask'),
+    port=int(os.environ.get('DB_PORT', 3306)),
     auth_plugin='mysql_native_password'
 )
 
+app.config['MYSQL_HOST'] = os.environ.get('DB_HOST', 'localhost')
+app.config['MYSQL_USER'] = os.environ.get('DB_USER', 'root')
+app.config['MYSQL_PASSWORD'] = os.environ.get('DB_PASSWORD', '')
+app.config['MYSQL_DB'] = os.environ.get('DB_NAME', 'flask')
 sql = MySQL(app)
 #Upload image from pc to upload folder
 UPLOAD_FOLDER = 'static/upload'
@@ -48,8 +54,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-app = Flask(__name__)
-app.secret_key = 'super secret key'
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 

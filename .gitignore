@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Flask
+instance/
+
+# Runtime uploads (keep the committed sample images, ignore new ones)
+Flask_project/static/upload/*
+!Flask_project/static/upload/.gitkeep
+Flask_project/static/download/*
+!Flask_project/static/download/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
